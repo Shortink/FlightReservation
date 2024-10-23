@@ -1,10 +1,11 @@
 ﻿@page "/flights"
+@using FlightReservation.Data
 <div class="container">
 
     <div class="flight">
         <h3>Flights</h3>
-        <p>Flight 1</p>
-        <p>Flight 2</p>
+        <p>@airports[0]</p>
+        <p>@airports[1]</p>
     </div>
 
     <div class="reserve">
@@ -54,7 +55,10 @@
             <label>
                 From:
                 <select>
-                    <option>YYC</option>
+                    @foreach (string item in airports)
+                    {
+                        <option value="@item"></option>
+                    }
                 </select>
             </label>
 
@@ -81,5 +85,7 @@
 
 
 @code {
-
+    FlightManager fm = new FlightManager();
+    List<string> airports = FlightManager.GetAirports();  //retrieve list of airports
+    List<Flight> flights = FlightManager.FlightFinder(null, null, null);  //retrieve list of flights that user searched for. temprorarily null
 }

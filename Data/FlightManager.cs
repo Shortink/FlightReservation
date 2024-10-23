@@ -52,8 +52,8 @@ namespace FlightReservation.Data
         public static List<Flight> FlightFinder(string? origin, string? destination, string? day) 
         {
             List<Flight> validFlights = new List<Flight>();  //final list that will be returned
-            List<Flight> foundFlights = flights.FindAll(flight => flight.Origin == origin && flight.Destination == destination && flight.Day == day);  //need to add exception handle for null values
-            
+            //List<Flight> foundFlights = flights.FindAll(flight => flight.Origin == origin && flight.Destination == destination && flight.Day == day);  //need to add exception handle for null values
+            List<Flight> foundFlights = flights.FindAll(flight => flight.Day == day);
             return foundFlights;
         }
 

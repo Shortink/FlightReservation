@@ -5,7 +5,6 @@
     <div class="flight">
         <h3>Flights</h3>
         <p>@airports[0]</p>
-        <p>@airports[1]</p>
     </div>
 
     <div class="reserve">
@@ -83,9 +82,44 @@
 
 </div>
 
+@if (flights == null)
+{
+    
+} else
+{
+    <div>
+        <table class="flight-table">
+            <thead>
+                <tr>
+                    <th>Flight</th>
+                    <th>Airline</th>
+                    <th>Day</th>
+                    <th>Time</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Flight flight in flights)
+                {
+                    <tr id=@flight.FlightNumber>  <!-- add unique id to each row, will be used for flight reservation later -->
+                        <td>@flight.FlightNumber</td>
+                        <td>@flight.Airline</td>
+                        <td>@flight.Day</td>
+                        <td>@flight.Time</td>
+                        <td>@flight.Origin</td>
+                        <td>@flight.Destination</td>
+                        <td>@flight.Cost</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
 
 @code {
     FlightManager fm = new FlightManager();
     List<string> airports = FlightManager.GetAirports();  //retrieve list of airports
-    List<Flight> flights = FlightManager.FlightFinder(null, null, null);  //retrieve list of flights that user searched for. temprorarily null
+    List<Flight> flights = FlightManager.FlightFinder(null, null, "Thursday");  //retrieve list of flights that user searched for. temprorarily null
 }

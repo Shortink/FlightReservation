@@ -67,3 +67,39 @@ button:hover {
     margin-top: auto;
     border: solid 1px red;
 }
+
+
+
+.flight-table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .flight-table thead {
+        background-color: #007BFF;
+        color: #fff;
+    }
+
+    .flight-table th, .flight-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    .flight-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .flight-table tbody tr:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
+    }
+
+    .flight-table td {
+        color: #333;
+    }
+
+      

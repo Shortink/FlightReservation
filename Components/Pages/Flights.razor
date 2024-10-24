@@ -62,7 +62,6 @@
 
 @if (flights == null)
 {
-    <p>Loadinggggg</p>
 } else
 {
     <div class="flight-container">
@@ -103,8 +102,8 @@
     FlightManager fm = new FlightManager();
     List<Flight> randomFlights = FlightManager.DailyFlights(); //displays 5 random flights
     List<string> airports = FlightManager.GetAirports();  //retrieve list of airports
-    List<Flight> flights = FlightManager.FlightFinder(null, null, null);  //retrieve list of flights that user searched for. temprorarily null
-
+                                                          //List<Flight> flights = FlightManager.FlightFinder(null, null, null);  //retrieve list of flights that user searched for. temprorarily null
+    List<Flight> flights = null;
     void getOrigin(ChangeEventArgs e)
     {
         origin = e.Value.ToString();

@@ -26,6 +26,7 @@
             <label>
                 Origin
                 <select @onchange="getOrigin" class="form-select">
+                    <option disabled selected value> -- select an option -- </option>
                     @foreach (string airport in airports)
                     {
                         <option value="@airport">@airport</option>
@@ -38,6 +39,7 @@
             <label>
                 Destination
                 <select @onchange="getDestination" class="form-select">
+                    <option disabled selected value> -- select an option -- </option>
                     @foreach (string airport in airports)
                     {
                         <option value="@airport">@airport</option>
@@ -49,8 +51,16 @@
         <div class="flight-finder">
             <label>
                 Day
-                <select class="form-select">
-                    <option>Any</option>
+                <select @onchange="getDay" class="form-select">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="Any">Any</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
                 </select>
             </label>
         </div>
@@ -111,6 +121,10 @@
     void getDestination(ChangeEventArgs e)
     {
         destination = e.Value.ToString();
+    }
+    void getDay(ChangeEventArgs e)
+    {
+        day = e.Value.ToString();
     }
 
     void DisplayFlights()

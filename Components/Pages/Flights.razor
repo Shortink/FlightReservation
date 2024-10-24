@@ -2,7 +2,7 @@
 @using FlightReservation.Data
 <div class="containerr">  <!--temp css class,other one breaks when in full screen idk why-->
     <div class="flightt">
-        <h2>FLIGHTS</h2>
+        <h2>DAILY FLIGHTS</h2>
         <table class="flight-table">
             <tbody>
                 @foreach (Flight flight in randomFlights)
@@ -11,11 +11,10 @@
                         <!-- add unique id to each row, will be used for flight reservation later -->
                         <td>@flight.FlightNumber</td>
                         <td>@flight.Airline</td>
-                        <td>@flight.Day</td>
-                        <td>@flight.Time</td>
                         <td>@flight.Origin</td>
                         <td>@flight.Destination</td>
-                        <td>@flight.Cost</td>
+                        <td>@flight.Time</td>
+                        <td>$@flight.Cost</td>
                     </tr>
                 }
             </tbody>

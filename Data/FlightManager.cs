@@ -50,12 +50,12 @@ namespace FlightReservation.Data
             return airports;
         }
 
-        public static List<Flight> DailyFlights()
+        public static List<Flight> DailyFlights()  //returns the first 5 flights of the current day to be displayed on the flight page
         {
-            Random randomNum = new Random();
-            List<Flight> shuffledFlight = new List<Flight>(flights.OrderBy(x => randomNum.Next()).ToList());
-            shuffledFlight.RemoveRange(5, shuffledFlight.Count - 5);
-            return shuffledFlight;
+            DateTime dt = DateTime.Now;
+            List<Flight> dailyFlight = flights.FindAll(flight => flight.Day == dt.DayOfWeek.ToString());
+            dailyFlight.RemoveRange(5, dailyFlight.Count - 5);
+            return dailyFlight;
         }
 
          // function should be able to use any combination of the 3 parameters to find and return flights, returns all flight if all input parameters are null?

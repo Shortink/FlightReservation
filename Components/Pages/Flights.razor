@@ -1,93 +1,72 @@
 ﻿@page "/flights"
 @using FlightReservation.Data
-<div class="container">
-
-    <div class="flight">
-        <h3>Flights</h3>
-        <p>@airports[0]</p>
+<div class="containerr">  <!--temp css class,other one breaks when in full screen idk why-->
+    <div class="flightt">
+        <h2>FLIGHTS</h2>
+        <table class="flight-table">
+            <tbody>
+                @foreach (Flight flight in randomFlights)
+                {
+                    <tr id=@flight.FlightNumber>
+                        <!-- add unique id to each row, will be used for flight reservation later -->
+                        <td>@flight.FlightNumber</td>
+                        <td>@flight.Airline</td>
+                        <td>@flight.Day</td>
+                        <td>@flight.Time</td>
+                        <td>@flight.Origin</td>
+                        <td>@flight.Destination</td>
+                        <td>@flight.Cost</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 
-    <div class="reserve">
-        <h3>Reserve</h3>
-        <form>
-            <div class="form-group">
-                <label for="flight">Flight:</label>
-                <input type="text" id="flight" name="flight" />
-            </div>
-
-            <div class="form-group">
-                <label for="airline">Airline:</label>
-                <input type="text" id="airline" name="airline" />
-            </div>
-
-            <div class="form-group">
-                <label for="day">Day:</label>
-                <input type="text" id="day" name="day" />
-            </div>
-
-            <div class="form-group">
-                <label for="time">Time:</label>
-                <input type="text" id="time" name="time" />
-            </div>
-
-            <div class="form-group">
-                <label for="cost">Cost:</label>
-                <input type="text" id="cost" name="cost" />
-            </div>
-
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" />
-            </div>
-
-            <div class="form-group">
-                <label for="citizenship">Citizenship:</label>
-                <input type="text" id="citizenship" name="citizenship" />
-            </div>
-
-            <button type="submit">Reserve</button>
-        </form>
-    </div>
-
-    <div class="flight-finder">
-        <form>
+    <EditForm Model="fm" OnValidSubmit="@DisplayFlights">
+        <div class="flight-finder">
             <label>
-                From:
-                <select>
-                    @foreach (string item in airports)
+                Origin
+                <select @onchange="getOrigin" class="form-select">
+                    @foreach (string airport in airports)
                     {
-                        <option value="@item"></option>
+                        <option value="@airport">@airport</option>
                     }
                 </select>
             </label>
+        </div>
 
+        <div class="flight-finder">
             <label>
-                To:
-                <select>
-                    <option>YYC</option>
+                Destination
+                <select @onchange="getDestination" class="form-select">
+                    @foreach (string airport in airports)
+                    {
+                        <option value="@airport">@airport</option>
+                    }
                 </select>
             </label>
+        </div>
 
+        <div class="flight-finder">
             <label>
-                Day:
-                <select>
+                Day
+                <select class="form-select">
                     <option>Any</option>
                 </select>
             </label>
-            <button type="submit">Find flights</button>
-        </form>
-    </div>
-
-
+        </div>
+        <button type="submit" class="search-submit">Find Flights</button>
+    </EditForm>
 
 </div>
 
+
 @if (flights == null)
 {
-    
+    <p>Loadinggggg</p>
 } else
 {
-    <div>
+    <div class="flight-container">
         <table class="flight-table">
             <thead>
                 <tr>
@@ -119,7 +98,26 @@
 }
 
 @code {
+    string origin;
+    string destination;
+    string day;
     FlightManager fm = new FlightManager();
+    List<Flight> randomFlights = FlightManager.DailyFlights(); //displays 5 random flights
     List<string> airports = FlightManager.GetAirports();  //retrieve list of airports
-    List<Flight> flights = FlightManager.FlightFinder(null, null, "Thursday");  //retrieve list of flights that user searched for. temprorarily null
+    List<Flight> flights = FlightManager.FlightFinder(null, null, null);  //retrieve list of flights that user searched for. temprorarily null
+
+    void getOrigin(ChangeEventArgs e)
+    {
+        origin = e.Value.ToString();
+    }
+    void getDestination(ChangeEventArgs e)
+    {
+        destination = e.Value.ToString();
+    }
+
+    void DisplayFlights()
+    {
+        flights = FlightManager.FlightFinder(origin, destination, day);
+    }
+
 }

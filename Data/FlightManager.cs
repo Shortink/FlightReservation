@@ -13,6 +13,8 @@ namespace FlightReservation.Data
 
         public static List<Flight> flights = new();
         public static List<string> airports = new();
+        
+        public static List<Flight> shuffledFlights = new ();
 
         public FlightManager()
         {
@@ -48,12 +50,20 @@ namespace FlightReservation.Data
             return airports;
         }
 
+        public static List<Flight> DailyFlights()
+        {
+            Random randomNum = new Random();
+            List<Flight> shuffledFlight = new List<Flight>(flights.OrderBy(x => randomNum.Next()).ToList());
+            shuffledFlight.RemoveRange(5, shuffledFlight.Count - 5);
+            return shuffledFlight;
+        }
+
          // function should be able to use any combination of the 3 parameters to find and return flights, returns all flight if all input parameters are null?
         public static List<Flight> FlightFinder(string? origin, string? destination, string? day) 
         {
             List<Flight> validFlights = new List<Flight>();  //final list that will be returned
-            //List<Flight> foundFlights = flights.FindAll(flight => flight.Origin == origin && flight.Destination == destination && flight.Day == day);  //need to add exception handle for null values
-            List<Flight> foundFlights = flights.FindAll(flight => flight.Day == day);
+            List<Flight> foundFlights = flights.FindAll(flight => flight.Origin == origin && flight.Destination == destination);  //need to add exception handle for null values
+            //List<Flight> foundFlights = flights.FindAll(flight => flight.Day == day);
             return foundFlights;
         }
 

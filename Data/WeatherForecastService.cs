@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlightReservation.Data
 {
-    internal class WeatherForecastService
+    public class WeatherForecastService
     {
     }
 }
